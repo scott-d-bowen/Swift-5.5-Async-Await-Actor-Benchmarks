@@ -22,7 +22,7 @@ extension Array {
     }
 }
 
-var randomUInt8s: [UInt8] = (0..<128*1024*1024).map( {_ in UInt8.random(in: 0x00...0xFF) })
+var randomUInt8s: [UInt8] = (0..<LOTS_OF_RANDOM_DATA).map( {_ in UInt8.random(in: 0x00...0xFF) })
 let slicedRandomData: [[UInt8]] = randomUInt8s.chunked(into: MICRO_CHUNK_SIZE)
 
 func attemptCompression() async -> Data {
