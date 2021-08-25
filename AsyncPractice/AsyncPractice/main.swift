@@ -9,6 +9,9 @@ import Foundation
 import DataCompression
 
 let MACRO_LOOPS = 16384
+let MICRO_CHUNK_SIZE = 8192
+let LOTS_OF_RANDOM_DATA = MACRO_LOOPS * MICRO_CHUNK_SIZE
+
 var GLOBAL_START = Date()
 
 extension Array {
@@ -20,7 +23,7 @@ extension Array {
 }
 
 var randomUInt8s: [UInt8] = (0..<128*1024*1024).map( {_ in UInt8.random(in: 0x00...0xFF) })
-let slicedRandomData: [[UInt8]] = randomUInt8s.chunked(into: 8192)
+let slicedRandomData: [[UInt8]] = randomUInt8s.chunked(into: MICRO_CHUNK_SIZE)
 
 func attemptCompression() async -> Data {
     let compressedData = Data(randomUInt8s).compress(withAlgorithm: .lzfse)!
